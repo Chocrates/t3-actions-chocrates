@@ -16,10 +16,10 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     # You could use the following lines to help make sure only X people start the workflow
-    # if: github.actor == 'admiralawkbar' || github.actor == 'jwiebalk'
-
+    
+    if: github.actor == 'Chocrates'
     # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
+    steps:     
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout source code
         uses: actions/checkout@v2
