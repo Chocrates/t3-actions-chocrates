@@ -3,7 +3,7 @@ author: 'GitHub'
 description: 'It is a simple GitHub Action'
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/chocrates-test-org/t3-actions-chocrates@v1'
+  image: 'docker://ghcr.io/chocrates-test-org/t3-actions-chocrates:v1'
   # image: 'Dockerfile` # Will run the dockerfile from the root of the repo and not pull it like from above
 branding:
   icon: 'check-square'
