@@ -5,7 +5,7 @@ name: Docker Production
 # Controls when the action will run.
 on:
   push:
-    branches:
+    branches-ignore:
       - 'master'
       - 'main'
 
