@@ -1,13 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Docker Production
+name: Docker Publish Release
 
 # Controls when the action will run.
 on:
-  push:
-    branches:
-      - 'master'
-      - 'main'
+  release:
+    # Want to run the automation when a release is created
+    types: ['created']
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -15,8 +14,9 @@ jobs:
   docker-prod-release:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    
     # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:     
+    steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout source code
         uses: actions/checkout@v2
@@ -63,13 +63,6 @@ jobs:
             console.log('create', create)
             return create.data.number
 
-      ########################################
-      # Convert repository name to lowercase #
-      ########################################
-      - name: Repository Name to lowercase
-        run: |
-          echo IMAGE_REPOSITORY=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]') >> $GITHUB_ENV
-        
       ###########################################
       # Build and Push containers to registries #
       ###########################################
@@ -80,8 +73,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ env.IMAGE_REPOSITORY }}:latest
-            ghcr.io/${{ env.IMAGE_REPOSITORY }}:v1
+            ghcr.io/${{github.repository_owner}}/${{github.repository.name}}:latest
+            ghcr.io/${{github.repository_owner}}/${{github.repository.name}}:${{ github.event.release.tag_name }}
 
       # Update Deployment API
       - name: update deployment status
